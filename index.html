@@ -12,150 +12,118 @@
     --green: #2ecc71; --red: #e74c3c; --blue: #3498db; --yellow: #f1c40f;
     --bg: #111418; --surface: #181c22; --border: #252b35; --muted: #4a5568;
   }
-  body {
-    background: var(--bg); font-family: 'Barlow', sans-serif;
-    color: #d0d6e0; min-height: 100vh;
-  }
+  body { background: var(--bg); font-family: 'Barlow', sans-serif; color: #d0d6e0; min-height: 100vh; }
   body::before {
     content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
-    background-image:
-      linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+    background-image: linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
     background-size: 40px 40px;
   }
-  .wrap { position:relative; z-index:1; max-width:640px; margin:0 auto; padding:32px 16px 60px; }
+  .wrap { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; padding: 32px 16px 60px; }
 
-/* HEADER */
-.header { margin-bottom:28px; }
-.header-top { display:flex; align-items:center; gap:10px; margin-bottom:6px; }
-.header-label { font-family:‘Barlow Condensed’,sans-serif; font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(–muted); flex:1; }
-.header-title { font-family:‘Barlow Condensed’,sans-serif; font-size:36px; font-weight:800; letter-spacing:1px; line-height:1; color:var(–yellow); transition:color 0.4s; }
-.header-title.all-safe  { color:var(–green); }
-.header-title.has-unsafe{ color:var(–red); }
-.header-date { font-size:12px; color:var(–muted); margin-top:6px; }
+.header { margin-bottom: 28px; }
+.header-top { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+.header-label { font-family: ‘Barlow Condensed’, sans-serif; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(–muted); flex: 1; }
+.header-title { font-family: ‘Barlow Condensed’, sans-serif; font-size: 36px; font-weight: 800; letter-spacing: 1px; line-height: 1; color: var(–yellow); transition: color 0.4s; }
+.header-title.all-safe { color: var(–green); }
+.header-title.has-unsafe { color: var(–red); }
+.header-date { font-size: 12px; color: var(–muted); margin-top: 6px; }
 
-.pulse-dot {
-width:10px; height:10px; border-radius:50%; flex-shrink:0;
-background:var(–yellow); animation:pulse 2s infinite;
-}
-.pulse-dot.all-safe  { background:var(–green); animation:pulse-green 2s infinite; }
-.pulse-dot.has-unsafe{ background:var(–red);   animation:pulse-red   2s infinite; }
-@keyframes pulse       { 0%,100%{box-shadow:0 0 0 0 rgba(241,196,15,0.5)} 50%{box-shadow:0 0 0 7px rgba(241,196,15,0)} }
-@keyframes pulse-green { 0%,100%{box-shadow:0 0 0 0 rgba(46,204,113,0.5)} 50%{box-shadow:0 0 0 7px rgba(46,204,113,0)} }
-@keyframes pulse-red   { 0%,100%{box-shadow:0 0 0 0 rgba(231,76,60,0.5)}  50%{box-shadow:0 0 0 7px rgba(231,76,60,0)} }
+.pulse-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; background: var(–yellow); animation: pulse 2s infinite; }
+.pulse-dot.all-safe { background: var(–green); animation: pulse-green 2s infinite; }
+.pulse-dot.has-unsafe { background: var(–red); animation: pulse-red 2s infinite; }
+@keyframes pulse       { 0%,100%{ box-shadow: 0 0 0 0 rgba(241,196,15,0.5); } 50%{ box-shadow: 0 0 0 7px rgba(241,196,15,0); } }
+@keyframes pulse-green { 0%,100%{ box-shadow: 0 0 0 0 rgba(46,204,113,0.5); } 50%{ box-shadow: 0 0 0 7px rgba(46,204,113,0); } }
+@keyframes pulse-red   { 0%,100%{ box-shadow: 0 0 0 0 rgba(231,76,60,0.5);  } 50%{ box-shadow: 0 0 0 7px rgba(231,76,60,0);  } }
 
-/* STATS */
-.stats { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:20px; }
-.stat { background:var(–surface); border:1px solid var(–border); border-radius:8px; padding:12px 8px; text-align:center; transition:all 0.3s; }
-.stat.g { border-color:var(–green); background:rgba(46,204,113,0.06); }
-.stat.r { border-color:var(–red);   background:rgba(231,76,60,0.06); }
-.stat.b { border-color:var(–blue);  background:rgba(52,152,219,0.06); }
-.stat-num { font-family:‘Barlow Condensed’,sans-serif; font-size:26px; font-weight:700; color:var(–muted); line-height:1; transition:color 0.3s; }
-.stat.g .stat-num { color:var(–green); }
-.stat.r .stat-num { color:var(–red); }
-.stat.b .stat-num { color:var(–blue); }
-.stat-label { font-family:‘Barlow Condensed’,sans-serif; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(–muted); margin-top:3px; }
+.stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; margin-bottom: 20px; }
+.stat { background: var(–surface); border: 1px solid var(–border); border-radius: 8px; padding: 12px 8px; text-align: center; transition: all 0.3s; }
+.stat.g { border-color: var(–green); background: rgba(46,204,113,0.06); }
+.stat.r { border-color: var(–red);   background: rgba(231,76,60,0.06); }
+.stat.b { border-color: var(–blue);  background: rgba(52,152,219,0.06); }
+.stat-num { font-family: ‘Barlow Condensed’, sans-serif; font-size: 26px; font-weight: 700; color: var(–muted); line-height: 1; transition: color 0.3s; }
+.stat.g .stat-num { color: var(–green); }
+.stat.r .stat-num { color: var(–red); }
+.stat.b .stat-num { color: var(–blue); }
+.stat-label { font-family: ‘Barlow Condensed’, sans-serif; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(–muted); margin-top: 3px; }
 
-/* MEMBERS */
-.members { display:flex; flex-direction:column; gap:6px; }
+.members { display: flex; flex-direction: column; gap: 6px; }
 .member {
-display:flex; align-items:center; gap:10px;
-background:var(–surface); border:1px solid var(–border);
-border-radius:10px; padding:12px 14px; transition:all 0.2s;
-animation:fadeUp 0.3s ease both;
+display: flex; align-items: center; flex-wrap: wrap; gap: 10px;
+background: var(–surface); border: 1px solid var(–border);
+border-radius: 10px; padding: 12px 14px; transition: all 0.2s;
+animation: fadeUp 0.3s ease both;
 }
-.member.is-safe   { border-color:var(–green); background:rgba(46,204,113,0.06); }
-.member.is-unsafe { border-color:var(–red);   background:rgba(231,76,60,0.06); }
-.member.is-leave  { border-color:var(–blue);  background:rgba(52,152,219,0.06); opacity:.75; }
-@keyframes fadeUp { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+.member.is-safe   { border-color: var(–green); background: rgba(46,204,113,0.06); }
+.member.is-unsafe { border-color: var(–red);   background: rgba(231,76,60,0.06); }
+.member.is-leave  { border-color: var(–blue);  background: rgba(52,152,219,0.06); opacity: 0.8; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
-.member-dot { width:9px; height:9px; border-radius:50%; flex-shrink:0; background:#2a2a2a; transition:all 0.2s; }
-.is-safe   .member-dot { background:var(–green); box-shadow:0 0 8px var(–green); }
-.is-unsafe .member-dot { background:var(–red);   box-shadow:0 0 8px var(–red); }
-.is-leave  .member-dot { background:var(–blue);  box-shadow:0 0 8px var(–blue); }
+.member-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; background: #2a2a2a; transition: all 0.2s; }
+.is-safe   .member-dot { background: var(–green); box-shadow: 0 0 8px var(–green); }
+.is-unsafe .member-dot { background: var(–red);   box-shadow: 0 0 8px var(–red); }
+.is-leave  .member-dot { background: var(–blue);  box-shadow: 0 0 8px var(–blue); }
 
-.member-name { flex:1; font-size:15px; font-weight:600; color:#888; transition:color 0.2s; }
-.is-safe   .member-name { color:var(–green); }
-.is-unsafe .member-name { color:var(–red); }
-.is-leave  .member-name { color:var(–blue); }
+.member-name { flex: 1; font-size: 15px; font-weight: 600; color: #888; transition: color 0.2s; }
+.is-safe   .member-name { color: var(–green); }
+.is-unsafe .member-name { color: var(–red); }
+.is-leave  .member-name { color: var(–blue); }
 
-.edit-icon { background:none; border:none; cursor:pointer; color:var(–muted); font-size:14px; padding:3px 5px; border-radius:4px; transition:color 0.15s; flex-shrink:0; }
-.edit-icon:hover { color:#ccc; }
+.edit-icon { background: none; border: none; cursor: pointer; color: var(–muted); font-size: 14px; padding: 3px 5px; border-radius: 4px; transition: color 0.15s; flex-shrink: 0; }
+.edit-icon:hover { color: #ccc; }
 
-.member-btns { display:flex; gap:5px; flex-shrink:0; }
-.btn {
-padding:5px 11px; border-radius:6px;
-font-family:‘Barlow Condensed’,sans-serif; font-size:11px; font-weight:700;
-letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; border:1px solid; transition:all 0.15s;
-}
-.btn-safe   { background:transparent; border-color:var(–green); color:var(–green); }
-.btn-safe:hover   { background:rgba(46,204,113,0.15); }
-.is-safe   .btn-safe   { background:var(–green); border-color:var(–green); color:#000; font-size:13px; box-shadow:0 0 14px rgba(46,204,113,0.7); }
-.btn-unsafe { background:transparent; border-color:var(–red); color:var(–red); }
-.btn-unsafe:hover { background:rgba(231,76,60,0.15); }
-.is-unsafe .btn-unsafe { background:var(–red); border-color:var(–red); color:#fff; font-size:13px; box-shadow:0 0 14px rgba(231,76,60,0.7); }
-.btn-leave  { background:transparent; border-color:var(–blue); color:var(–blue); }
-.btn-leave:hover  { background:rgba(52,152,219,0.15); }
-.is-leave  .btn-leave  { background:var(–blue); border-color:var(–blue); color:#fff; font-size:13px; box-shadow:0 0 14px rgba(52,152,219,0.7); }
+.member-btns { display: flex; gap: 5px; flex-shrink: 0; }
 
-/* BOTTOM */
-.bottom-actions { margin-top:12px; display:flex; flex-direction:column; gap:8px; }
-.add-row { display:flex; gap:8px; align-items:center; }
-.name-input {
-flex:1; padding:11px 14px; border-radius:8px;
-background:#1a1e26; border:1px solid var(–border);
-color:#fff; font-size:14px; font-family:‘Barlow’,sans-serif; outline:none; transition:border-color 0.2s;
-}
-.name-input:focus { border-color:#555; }
-.btn-action {
-padding:11px 18px; border-radius:8px;
-font-family:‘Barlow Condensed’,sans-serif; font-size:12px; font-weight:700;
-letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; border:none; transition:all 0.15s; white-space:nowrap;
-}
-.btn-confirm { background:var(–yellow); color:#000; }
-.btn-confirm:hover { background:#ffe033; }
-.btn-cancel  { background:#252b35; color:#888; }
-.btn-cancel:hover  { background:#2e3645; }
-.btn-delete  { background:rgba(231,76,60,0.12); color:var(–red); border:1px solid rgba(231,76,60,0.25) !important; }
-.btn-delete:hover  { background:rgba(231,76,60,0.22); }
-.btn-reset {
-width:100%; padding:11px; border-radius:8px; background:transparent;
-border:1px solid var(–border); color:var(–muted);
-font-family:‘Barlow Condensed’,sans-serif; font-size:11px; font-weight:700;
-letter-spacing:2px; text-transform:uppercase; cursor:pointer; transition:all 0.2s;
-}
-.btn-reset:hover { border-color:#555; color:#aaa; }
+.btn { padding: 5px 11px; border-radius: 6px; font-family: ‘Barlow Condensed’, sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; border: 1px solid; transition: all 0.15s; }
 
-/* LIVE BADGE */
-.live-badge {
-display:inline-flex; align-items:center; gap:5px;
-font-family:‘Barlow Condensed’,sans-serif; font-size:10px;
-letter-spacing:2px; text-transform:uppercase;
-color:#2ecc71; opacity:0.7;
-}
-.live-dot { width:6px; height:6px; border-radius:50%; background:#2ecc71; animation:pulse-green 1.5s infinite; }
+.btn-safe   { background: transparent; border-color: var(–green); color: var(–green); }
+.btn-safe:hover   { background: rgba(46,204,113,0.15); }
+.is-safe   .btn-safe   { background: var(–green); border-color: var(–green); color: #000; font-size: 13px; box-shadow: 0 0 14px rgba(46,204,113,0.7); }
 
-/* MODAL */
-.modal-overlay {
-display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75);
-z-index:100; align-items:center; justify-content:center; backdrop-filter:blur(4px);
-}
-.modal-overlay.open { display:flex; }
-.modal {
-background:#1a1e26; border:1px solid #2e3645; border-radius:14px;
-padding:28px; width:100%; max-width:360px; margin:16px; animation:fadeUp 0.2s ease;
-}
-.modal-title { font-family:‘Barlow Condensed’,sans-serif; font-size:16px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#777; margin-bottom:14px; }
-.modal-btns  { display:flex; gap:8px; margin-top:14px; flex-wrap:wrap; }
+.btn-unsafe { background: transparent; border-color: var(–red); color: var(–red); }
+.btn-unsafe:hover { background: rgba(231,76,60,0.15); }
+.is-unsafe .btn-unsafe { background: var(–red); border-color: var(–red); color: #fff; font-size: 13px; box-shadow: 0 0 14px rgba(231,76,60,0.7); }
 
-/* CONNECTING */
-.connecting { text-align:center; padding:60px 20px; color:var(–muted); font-family:‘Barlow Condensed’,sans-serif; letter-spacing:2px; font-size:14px; }
+.btn-leave  { background: transparent; border-color: var(–blue); color: var(–blue); }
+.btn-leave:hover  { background: rgba(52,152,219,0.15); }
+.is-leave  .btn-leave  { background: var(–blue); border-color: var(–blue); color: #fff; font-size: 13px; box-shadow: 0 0 14px rgba(52,152,219,0.7); }
 
-@media (max-width:500px) {
-.header-title { font-size:26px; }
-.btn { padding:5px 7px; font-size:10px; letter-spacing:0.5px; }
-.member-name { font-size:13px; }
-.stats { grid-template-columns:repeat(2,1fr); }
+.leave-return { width: 100%; font-size: 10px; color: var(–blue); letter-spacing: 1px; padding-left: 19px; margin-top: -4px; opacity: 0.8; }
+
+.live-badge { display: inline-flex; align-items: center; gap: 5px; font-family: ‘Barlow Condensed’, sans-serif; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #2ecc71; opacity: 0.7; }
+.live-dot { width: 6px; height: 6px; border-radius: 50%; background: #2ecc71; animation: pulse-green 1.5s infinite; }
+
+.bottom-actions { margin-top: 12px; display: flex; flex-direction: column; gap: 8px; }
+.add-row { display: flex; gap: 8px; align-items: center; }
+.name-input { flex: 1; padding: 11px 14px; border-radius: 8px; background: #1a1e26; border: 1px solid var(–border); color: #fff; font-size: 14px; font-family: ‘Barlow’, sans-serif; outline: none; transition: border-color 0.2s; }
+.name-input:focus { border-color: #555; }
+input[type=“date”].name-input { color-scheme: dark; }
+
+.btn-action { padding: 11px 18px; border-radius: 8px; font-family: ‘Barlow Condensed’, sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; border: none; transition: all 0.15s; white-space: nowrap; }
+.btn-confirm { background: var(–yellow); color: #000; }
+.btn-confirm:hover { background: #ffe033; }
+.btn-cancel  { background: #252b35; color: #888; }
+.btn-cancel:hover { background: #2e3645; }
+.btn-delete  { background: rgba(231,76,60,0.12); color: var(–red); border: 1px solid rgba(231,76,60,0.25) !important; }
+.btn-delete:hover { background: rgba(231,76,60,0.22); }
+
+.btn-reset { width: 100%; padding: 11px; border-radius: 8px; background: transparent; border: 1px solid var(–border); color: var(–muted); font-family: ‘Barlow Condensed’, sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: all 0.2s; }
+.btn-reset:hover { border-color: #555; color: #aaa; }
+
+.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75); z-index: 100; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
+.modal-overlay.open { display: flex; }
+.modal { background: #1a1e26; border: 1px solid #2e3645; border-radius: 14px; padding: 28px; width: 100%; max-width: 360px; margin: 16px; animation: fadeUp 0.2s ease; }
+.modal-title { font-family: ‘Barlow Condensed’, sans-serif; font-size: 16px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #777; margin-bottom: 14px; }
+.modal-sub { color: #555; font-size: 12px; margin-top: 8px; line-height: 1.5; }
+.modal-btns { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+.modal label { color: #666; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; display: block; margin-bottom: 6px; margin-top: 14px; }
+
+.connecting { text-align: center; padding: 60px 20px; color: var(–muted); font-family: ‘Barlow Condensed’, sans-serif; letter-spacing: 2px; font-size: 14px; }
+
+@media (max-width: 500px) {
+.header-title { font-size: 26px; }
+.btn { padding: 5px 7px; font-size: 10px; letter-spacing: 0.5px; }
+.member-name { font-size: 13px; }
+.stats { grid-template-columns: repeat(2,1fr); }
 }
 </style>
 
@@ -163,29 +131,39 @@ padding:28px; width:100%; max-width:360px; margin:16px; animation:fadeUp 0.2s ea
 <body>
 <div id="root"><div class="connecting">Connecting…</div></div>
 
-<!-- Edit Modal -->
+<!-- Edit Name Modal -->
 
-<div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
+<div class="modal-overlay" id="editModal" onclick="window.closeEditModal()">
   <div class="modal" onclick="event.stopPropagation()">
     <div class="modal-title">✎ Edit Member</div>
-    <input type="text" id="editInput" class="name-input" maxlength="50"
-      onkeydown="if(event.key==='Enter')confirmEdit();if(event.key==='Escape')closeModal();" />
+    <input type="text" id="editInput" class="name-input" maxlength="50" />
     <div class="modal-btns">
-      <button class="btn-action btn-confirm" onclick="confirmEdit()">Save</button>
-      <button class="btn-action btn-delete"  onclick="confirmDelete()">Remove</button>
-      <button class="btn-action btn-cancel"  onclick="closeModal()">Cancel</button>
+      <button class="btn-action btn-confirm" onclick="window.confirmEdit()">Save</button>
+      <button class="btn-action btn-delete"  onclick="window.confirmDelete()">Remove</button>
+      <button class="btn-action btn-cancel"  onclick="window.closeEditModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- Leave Date Modal -->
+
+<div class="modal-overlay" id="leaveModal" onclick="window.cancelLeave()">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-title">✈ Mark as On Leave</div>
+    <p id="leavePersonName" style="color:#aaa;font-size:14px;font-weight:600;"></p>
+    <label>Return to work on (optional):</label>
+    <input type="date" id="leaveDateInput" class="name-input" />
+    <p class="modal-sub">If set, their status will auto-reset to Pending on this date. Leave blank for indefinite leave.</p>
+    <div class="modal-btns">
+      <button class="btn-action btn-confirm" onclick="window.confirmLeave()">Confirm Leave</button>
+      <button class="btn-action btn-cancel"  onclick="window.cancelLeave()">Cancel</button>
     </div>
   </div>
 </div>
 
 <script type="module">
-
-// ═══════════════════════════════════════════════════
-//  STEP 1 — Paste your Firebase config here
-// ═══════════════════════════════════════════════════
-import { initializeApp }  from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getDatabase, ref, onValue, set, update, get }
-  from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getDatabase, ref, onValue, set, update, get } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
 const firebaseConfig = {
   apiKey:            "AIzaSyD5AiRkj0tLbnfKIyNTVa-wYCH7GESS9Uc",
@@ -196,7 +174,6 @@ const firebaseConfig = {
   messagingSenderId: "296256831323",
   appId:             "1:296256831323:web:1f5b035fc2f2f05211247e"
 };
-// ═══════════════════════════════════════════════════
 
 const DEFAULT_NAMES = [
   "Tina Monte","Stephen Laird","Clare Middleton","Sue Bagguley",
@@ -208,200 +185,259 @@ const app = initializeApp(firebaseConfig);
 const db  = getDatabase(app);
 
 function todayKey() {
-  return new Date().toISOString().slice(0, 10); // e.g. "2025-06-12"
+  return new Date().toISOString().slice(0, 10);
 }
 
-// Refs
 const namesRef  = () => ref(db, "safety/names");
-const statusRef = () => ref(db, `safety/status/${todayKey()}`);
+const statusRef = () => ref(db, "safety/status/" + todayKey());
+const leaveRef  = () => ref(db, "safety/leave");
 
-// Local state mirrors
-let NAMES    = [];
-let liveState = {};  // { "Name": "safe"|"unsafe"|"leave"|null }
+let NAMES      = [];
+let liveState  = {};
+let leaveDates = {};
 let editTarget = null;
+let pendingLeaveName = null;
 
-// ── BOOTSTRAP ───────────────────────────────────────
+// ── BOOT ────────────────────────────────────────────
 async function boot() {
-  // Load or initialise names list
-  const snap = await get(namesRef());
-  NAMES = snap.exists() ? snap.val() : [...DEFAULT_NAMES];
-  // Merge in any missing defaults
+  // Load names
+  const namesSnap = await get(namesRef());
+  NAMES = namesSnap.exists() ? namesSnap.val() : [...DEFAULT_NAMES];
   DEFAULT_NAMES.forEach(n => { if (!NAMES.includes(n)) NAMES.push(n); });
   await set(namesRef(), NAMES);
 
-  // Start listening for today's status (live updates)
-  onValue(statusRef(), snapshot => {
-    const data = snapshot.exists() ? snapshot.val() : {};
-    // Ensure every name has an entry
-    NAMES.forEach(n => { if (!(n in data)) data[n] = null; });
+  // Load leave dates and carry over / expire
+  const leaveSnap = await get(leaveRef());
+  leaveDates = leaveSnap.exists() ? leaveSnap.val() : {};
+
+  const statusSnap = await get(statusRef());
+  const todayData  = statusSnap.exists() ? statusSnap.val() : {};
+  const today      = todayKey();
+  const statusUpdates = {};
+  const leaveUpdates  = {};
+
+  NAMES.forEach(function(n) {
+    var leaveEnd = leaveDates[n];
+    if (leaveEnd && leaveEnd !== "indefinite" && leaveEnd <= today) {
+      // Leave expired — reset to pending
+      statusUpdates[n] = null;
+      leaveUpdates[n]  = null;
+    } else if (leaveEnd) {
+      // Still on leave — carry over to today if not already set
+      if (todayData[n] === undefined || todayData[n] === null) {
+        statusUpdates[n] = "leave";
+      }
+    } else if (todayData[n] === undefined) {
+      statusUpdates[n] = null;
+    }
+  });
+
+  if (Object.keys(statusUpdates).length) await update(statusRef(), statusUpdates);
+  if (Object.keys(leaveUpdates).length)  await update(leaveRef(),  leaveUpdates);
+
+  // Live listeners
+  onValue(leaveRef(), function(snap) {
+    leaveDates = snap.exists() ? snap.val() : {};
+    render();
+  });
+
+  onValue(statusRef(), function(snap) {
+    var data = snap.exists() ? snap.val() : {};
+    NAMES.forEach(function(n) { if (!(n in data)) data[n] = null; });
     liveState = data;
     render();
   });
 
-  // Also re-listen whenever names change
-  onValue(namesRef(), snapshot => {
-    if (snapshot.exists()) {
-      NAMES = snapshot.val();
-      render();
-    }
+  onValue(namesRef(), function(snap) {
+    if (snap.exists()) { NAMES = snap.val(); render(); }
   });
 }
 
-// ── WRITE STATUS ────────────────────────────────────
+// ── SET STATUS ──────────────────────────────────────
 async function setStatus(name, value) {
-  // Toggle off if already selected
-  const current = liveState[name];
-  const next = current === value ? null : value;
-  await update(statusRef(), { [name]: next });
+  var current = liveState[name];
+
+  if (value === "leave" && current !== "leave") {
+    // Show leave modal
+    pendingLeaveName = name;
+    document.getElementById("leavePersonName").textContent = name;
+    var tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    document.getElementById("leaveDateInput").min   = tomorrow.toISOString().slice(0, 10);
+    document.getElementById("leaveDateInput").value = "";
+    document.getElementById("leaveModal").classList.add("open");
+    return;
+  }
+
+  if (current === "leave" && value !== "leave") {
+    // Clearing leave — remove leave date too
+    await update(leaveRef(), {[name]: null});
+  }
+
+  var next = current === value ? null : value;
+  await update(statusRef(), {[name]: next});
 }
+
+window.__setStatus = setStatus;
+
+// ── LEAVE MODAL ─────────────────────────────────────
+window.confirmLeave = async function() {
+  if (!pendingLeaveName) return;
+  var dateVal = document.getElementById("leaveDateInput").value;
+  await update(leaveRef(),  {[pendingLeaveName]: dateVal || "indefinite"});
+  await update(statusRef(), {[pendingLeaveName]: "leave"});
+  window.cancelLeave();
+};
+
+window.cancelLeave = function() {
+  document.getElementById("leaveModal").classList.remove("open");
+  pendingLeaveName = null;
+};
 
 // ── RESET ALL ───────────────────────────────────────
 window.resetAll = async function() {
-  if (!confirm("Reset everyone's status?")) return;
-  const reset = {};
-  NAMES.forEach(n => reset[n] = null);
-  await set(statusRef(), reset);
+  if (!confirm("Reset all statuses? People on leave will stay on leave.")) return;
+  var updates = {};
+  NAMES.forEach(function(n) {
+    updates[n] = liveState[n] === "leave" ? "leave" : null;
+  });
+  await update(statusRef(), updates);
 };
 
 // ── ADD MEMBER ──────────────────────────────────────
 window.showAdd = function() {
-  document.getElementById('addRow').style.display = 'flex';
-  document.getElementById('addBtn').style.display = 'none';
-  document.getElementById('newNameInput').value = '';
-  document.getElementById('newNameInput').focus();
+  document.getElementById("addRow").style.display = "flex";
+  document.getElementById("addBtn").style.display = "none";
+  document.getElementById("newNameInput").value = "";
+  document.getElementById("newNameInput").focus();
 };
 window.cancelAdd = function() {
-  document.getElementById('addRow').style.display = 'none';
-  document.getElementById('addBtn').style.display = 'block';
+  document.getElementById("addRow").style.display = "none";
+  document.getElementById("addBtn").style.display = "block";
 };
 window.confirmAdd = async function() {
-  const val = document.getElementById('newNameInput').value.trim();
+  var val = document.getElementById("newNameInput").value.trim();
   if (!val) return;
-  if (NAMES.map(n=>n.toLowerCase()).includes(val.toLowerCase())) {
-    alert('That name is already in the list.'); return;
+  if (NAMES.map(function(n) { return n.toLowerCase(); }).includes(val.toLowerCase())) {
+    alert("That name is already in the list."); return;
   }
   NAMES.push(val);
   await set(namesRef(), NAMES);
-  await update(statusRef(), { [val]: null });
+  await update(statusRef(), {[val]: null});
   window.cancelAdd();
 };
 
 // ── EDIT MODAL ──────────────────────────────────────
 window.openEdit = function(name) {
   editTarget = name;
-  document.getElementById('editInput').value = name;
-  document.getElementById('modalOverlay').classList.add('open');
-  setTimeout(() => document.getElementById('editInput').focus(), 60);
+  document.getElementById("editInput").value = name;
+  document.getElementById("editModal").classList.add("open");
+  setTimeout(function() { document.getElementById("editInput").focus(); }, 60);
 };
-window.closeModal = function() {
-  document.getElementById('modalOverlay').classList.remove('open');
+window.closeEditModal = function() {
+  document.getElementById("editModal").classList.remove("open");
   editTarget = null;
 };
 window.confirmEdit = async function() {
-  const val = document.getElementById('editInput').value.trim();
+  var val = document.getElementById("editInput").value.trim();
   if (!val || !editTarget) return;
   if (val.toLowerCase() !== editTarget.toLowerCase() &&
-      NAMES.map(n=>n.toLowerCase()).includes(val.toLowerCase())) {
-    alert('That name already exists.'); return;
+      NAMES.map(function(n) { return n.toLowerCase(); }).includes(val.toLowerCase())) {
+    alert("That name already exists."); return;
   }
-  const idx = NAMES.indexOf(editTarget);
-  const savedStatus = liveState[editTarget];
+  var idx = NAMES.indexOf(editTarget);
+  var savedStatus = liveState[editTarget];
   NAMES[idx] = val;
   await set(namesRef(), NAMES);
-  // Move status to new name key
-  const updates = { [editTarget]: null, [val]: savedStatus ?? null };
-  await update(statusRef(), updates);
-  window.closeModal();
+  var su = {}; su[editTarget] = null; su[val] = savedStatus || null;
+  await update(statusRef(), su);
+  window.closeEditModal();
 };
 window.confirmDelete = async function() {
   if (!editTarget) return;
-  if (!confirm(`Remove "${editTarget}" from the list?`)) return;
-  NAMES = NAMES.filter(n => n !== editTarget);
+  if (!confirm("Remove \"" + editTarget + "\" from the list?")) return;
+  NAMES = NAMES.filter(function(n) { return n !== editTarget; });
   await set(namesRef(), NAMES);
-  const updates = { [editTarget]: null };
-  await update(statusRef(), updates);
-  window.closeModal();
+  var su = {}; su[editTarget] = null;
+  await update(statusRef(), su);
+  window.closeEditModal();
 };
 
 // ── RENDER ──────────────────────────────────────────
 function render() {
-  const active       = NAMES.filter(n => liveState[n] !== 'leave');
-  const safeCount    = NAMES.filter(n => liveState[n] === 'safe').length;
-  const unsafeCount  = NAMES.filter(n => liveState[n] === 'unsafe').length;
-  const leaveCount   = NAMES.filter(n => liveState[n] === 'leave').length;
-  const pendingCount = active.filter(n => !liveState[n]).length;
-  const allSafe      = active.length > 0 && active.every(n => liveState[n] === 'safe');
-  const hasUnsafe    = unsafeCount > 0;
+  var active       = NAMES.filter(function(n) { return liveState[n] !== "leave"; });
+  var safeCount    = NAMES.filter(function(n) { return liveState[n] === "safe"; }).length;
+  var unsafeCount  = NAMES.filter(function(n) { return liveState[n] === "unsafe"; }).length;
+  var leaveCount   = NAMES.filter(function(n) { return liveState[n] === "leave"; }).length;
+  var pendingCount = active.filter(function(n) { return !liveState[n]; }).length;
+  var allSafe      = active.length > 0 && active.every(function(n) { return liveState[n] === "safe"; });
+  var hasUnsafe    = unsafeCount > 0;
 
-  const dateStr = new Date().toLocaleDateString('en-GB', {
-    weekday:'long', day:'numeric', month:'long', year:'numeric'
-  });
+  var dateStr = new Date().toLocaleDateString("en-GB", {weekday:"long",day:"numeric",month:"long",year:"numeric"});
+  var headerClass = allSafe ? "all-safe" : hasUnsafe ? "has-unsafe" : "";
+  var dotClass    = allSafe ? "all-safe" : hasUnsafe ? "has-unsafe" : "";
+  var headerText  = allSafe ? "✓ ALL CLEAR" : hasUnsafe ? "⚠ ATTENTION NEEDED" : "AWAITING CHECK-IN";
 
-  const headerClass = allSafe ? 'all-safe' : hasUnsafe ? 'has-unsafe' : '';
-  const dotClass    = allSafe ? 'all-safe' : hasUnsafe ? 'has-unsafe' : '';
-  const headerText  = allSafe ? '✓ ALL CLEAR' : hasUnsafe ? '⚠ ATTENTION NEEDED' : 'AWAITING CHECK-IN';
+  var membersHTML = NAMES.map(function(name, i) {
+    var s   = liveState[name];
+    var cls = s === "safe" ? "is-safe" : s === "unsafe" ? "is-unsafe" : s === "leave" ? "is-leave" : "";
+    var esc = name.replace(/\\/g, "\\\\").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
 
-  const membersHTML = NAMES.map((name, i) => {
-    const s   = liveState[name];
-    const cls = s === 'safe' ? 'is-safe' : s === 'unsafe' ? 'is-unsafe' : s === 'leave' ? 'is-leave' : '';
-    const esc = name.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
-    return `
-      <div class="member ${cls}" style="animation-delay:${i*25}ms">
-        <div class="member-dot"></div>
-        <div class="member-name">${name}</div>
-        <button class="edit-icon" onclick="openEdit('${esc}')" title="Edit / Remove">✎</button>
-        <div class="member-btns">
-          <button class="btn btn-safe"   onclick="window.__setStatus('${esc}','safe')">${s === 'safe' ? '✓ Safe' : 'Safe'}</button>
-          <button class="btn btn-unsafe" onclick="window.__setStatus('${esc}','unsafe')">${s === 'unsafe' ? '✕ Not Safe' : 'Not Safe'}</button>
-          <button class="btn btn-leave"  onclick="window.__setStatus('${esc}','leave')">${s === 'leave' ? '✈ On Leave' : 'On Leave'}</button>
-        </div>
-      </div>`;
-  }).join('');
+    var safeLabel   = s === "safe"   ? "✓ Safe"     : "Safe";
+    var unsafeLabel = s === "unsafe" ? "✕ Not Safe"  : "Not Safe";
+    var leaveLabel  = s === "leave"  ? "✈ On Leave"  : "On Leave";
 
-  document.getElementById('root').innerHTML = `
-    <div class="wrap">
-      <div class="header">
-        <div class="header-top">
-          <div class="pulse-dot ${dotClass}"></div>
-          <span class="header-label">End-of-Day Safety Check-In</span>
-          <span class="live-badge"><span class="live-dot"></span>LIVE</span>
-        </div>
-        <div class="header-title ${headerClass}">${headerText}</div>
-        <div class="header-date">${dateStr}</div>
-      </div>
+    var leaveDate = leaveDates[name];
+    var leaveInfo = "";
+    if (s === "leave" && leaveDate && leaveDate !== "indefinite") {
+      var d = new Date(leaveDate + "T00:00:00");
+      leaveInfo = '<div class="leave-return">Returns: ' + d.toLocaleDateString("en-GB", {day:"numeric",month:"short",year:"numeric"}) + '</div>';
+    } else if (s === "leave" && leaveDate === "indefinite") {
+      leaveInfo = '<div class="leave-return">Indefinite leave</div>';
+    }
 
-      <div class="stats">
-        <div class="stat ${safeCount>0?'g':''}">
-          <div class="stat-num">${safeCount}</div><div class="stat-label">Safe</div>
-        </div>
-        <div class="stat ${unsafeCount>0?'r':''}">
-          <div class="stat-num">${unsafeCount}</div><div class="stat-label">Not Safe</div>
-        </div>
-        <div class="stat ${leaveCount>0?'b':''}">
-          <div class="stat-num">${leaveCount}</div><div class="stat-label">On Leave</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num">${pendingCount}</div><div class="stat-label">Pending</div>
-        </div>
-      </div>
+    return '<div class="member ' + cls + '" style="animation-delay:' + (i*25) + 'ms">' +
+      '<div class="member-dot"></div>' +
+      '<div class="member-name">' + name + '</div>' +
+      '<button class="edit-icon" onclick="window.openEdit(\'' + esc + '\')" title="Edit / Remove">✎</button>' +
+      '<div class="member-btns">' +
+        '<button class="btn btn-safe"   onclick="window.__setStatus(\'' + esc + '\',\'safe\')">'   + safeLabel   + '</button>' +
+        '<button class="btn btn-unsafe" onclick="window.__setStatus(\'' + esc + '\',\'unsafe\')">' + unsafeLabel + '</button>' +
+        '<button class="btn btn-leave"  onclick="window.__setStatus(\'' + esc + '\',\'leave\')">'  + leaveLabel  + '</button>' +
+      '</div>' +
+      leaveInfo +
+    '</div>';
+  }).join("");
 
-      <div class="members">${membersHTML}</div>
-
-      <div class="bottom-actions">
-        <div class="add-row" id="addRow" style="display:none;">
-          <input type="text" id="newNameInput" class="name-input" placeholder="Enter full name..." maxlength="50"
-            onkeydown="if(event.key==='Enter')window.confirmAdd();if(event.key==='Escape')window.cancelAdd();" />
-          <button class="btn-action btn-confirm" onclick="window.confirmAdd()">Add</button>
-          <button class="btn-action btn-cancel"  onclick="window.cancelAdd()">✕</button>
-        </div>
-        <button class="btn-reset" id="addBtn" onclick="window.showAdd()">+ Add Team Member</button>
-        <button class="btn-reset" onclick="window.resetAll()">↺ Reset All Statuses</button>
-      </div>
-    </div>`;
+  document.getElementById("root").innerHTML =
+    '<div class="wrap">' +
+      '<div class="header">' +
+        '<div class="header-top">' +
+          '<div class="pulse-dot ' + dotClass + '"></div>' +
+          '<span class="header-label">End-of-Day Safety Check-In</span>' +
+          '<span class="live-badge"><span class="live-dot"></span>LIVE</span>' +
+        '</div>' +
+        '<div class="header-title ' + headerClass + '">' + headerText + '</div>' +
+        '<div class="header-date">' + dateStr + '</div>' +
+      '</div>' +
+      '<div class="stats">' +
+        '<div class="stat ' + (safeCount   > 0 ? "g" : "") + '"><div class="stat-num">' + safeCount    + '</div><div class="stat-label">Safe</div></div>' +
+        '<div class="stat ' + (unsafeCount > 0 ? "r" : "") + '"><div class="stat-num">' + unsafeCount  + '</div><div class="stat-label">Not Safe</div></div>' +
+        '<div class="stat ' + (leaveCount  > 0 ? "b" : "") + '"><div class="stat-num">' + leaveCount   + '</div><div class="stat-label">On Leave</div></div>' +
+        '<div class="stat"><div class="stat-num">' + pendingCount + '</div><div class="stat-label">Pending</div></div>' +
+      '</div>' +
+      '<div class="members">' + membersHTML + '</div>' +
+      '<div class="bottom-actions">' +
+        '<div class="add-row" id="addRow" style="display:none;">' +
+          '<input type="text" id="newNameInput" class="name-input" placeholder="Enter full name..." maxlength="50" onkeydown="if(event.key===\'Enter\')window.confirmAdd();if(event.key===\'Escape\')window.cancelAdd();" />' +
+          '<button class="btn-action btn-confirm" onclick="window.confirmAdd()">Add</button>' +
+          '<button class="btn-action btn-cancel"  onclick="window.cancelAdd()">✕</button>' +
+        '</div>' +
+        '<button class="btn-reset" id="addBtn" onclick="window.showAdd()">+ Add Team Member</button>' +
+        '<button class="btn-reset" onclick="window.resetAll()">↺ Reset All Statuses</button>' +
+      '</div>' +
+    '</div>';
 }
-
-// Expose setStatus to inline onclick handlers
-window.__setStatus = setStatus;
 
 boot();
 </script>
