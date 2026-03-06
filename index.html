@@ -88,15 +88,15 @@ padding:5px 11px; border-radius:6px;
 font-family:‘Barlow Condensed’,sans-serif; font-size:11px; font-weight:700;
 letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; border:1px solid; transition:all 0.15s;
 }
-.btn-safe   { background:transparent; border-color:#2a3a2a; color:#3a7a5a; }
-.btn-safe:hover   { border-color:var(–green); color:var(–green); }
-.is-safe   .btn-safe   { background:var(–green); border-color:var(–green); color:#000; }
-.btn-unsafe { background:transparent; border-color:#3a2a2a; color:#7a3a3a; }
-.btn-unsafe:hover { border-color:var(–red); color:var(–red); }
-.is-unsafe .btn-unsafe { background:var(–red); border-color:var(–red); color:#fff; }
-.btn-leave  { background:transparent; border-color:#2a2a3a; color:#3a5a7a; }
-.btn-leave:hover  { border-color:var(–blue); color:var(–blue); }
-.is-leave  .btn-leave  { background:var(–blue); border-color:var(–blue); color:#fff; }
+.btn-safe   { background:transparent; border-color:var(–green); color:var(–green); }
+.btn-safe:hover   { background:rgba(46,204,113,0.15); }
+.is-safe   .btn-safe   { background:var(–green); border-color:var(–green); color:#000; font-size:13px; box-shadow:0 0 14px rgba(46,204,113,0.7); }
+.btn-unsafe { background:transparent; border-color:var(–red); color:var(–red); }
+.btn-unsafe:hover { background:rgba(231,76,60,0.15); }
+.is-unsafe .btn-unsafe { background:var(–red); border-color:var(–red); color:#fff; font-size:13px; box-shadow:0 0 14px rgba(231,76,60,0.7); }
+.btn-leave  { background:transparent; border-color:var(–blue); color:var(–blue); }
+.btn-leave:hover  { background:rgba(52,152,219,0.15); }
+.is-leave  .btn-leave  { background:var(–blue); border-color:var(–blue); color:#fff; font-size:13px; box-shadow:0 0 14px rgba(52,152,219,0.7); }
 
 /* BOTTOM */
 .bottom-actions { margin-top:12px; display:flex; flex-direction:column; gap:8px; }
@@ -351,9 +351,9 @@ function render() {
         <div class="member-name">${name}</div>
         <button class="edit-icon" onclick="openEdit('${esc}')" title="Edit / Remove">✎</button>
         <div class="member-btns">
-          <button class="btn btn-safe"   onclick="window.__setStatus('${esc}','safe')">Safe</button>
-          <button class="btn btn-unsafe" onclick="window.__setStatus('${esc}','unsafe')">Not Safe</button>
-          <button class="btn btn-leave"  onclick="window.__setStatus('${esc}','leave')">On Leave</button>
+          <button class="btn btn-safe"   onclick="window.__setStatus('${esc}','safe')">${s === 'safe' ? '✓ Safe' : 'Safe'}</button>
+          <button class="btn btn-unsafe" onclick="window.__setStatus('${esc}','unsafe')">${s === 'unsafe' ? '✕ Not Safe' : 'Not Safe'}</button>
+          <button class="btn btn-leave"  onclick="window.__setStatus('${esc}','leave')">${s === 'leave' ? '✈ On Leave' : 'On Leave'}</button>
         </div>
       </div>`;
   }).join('');
