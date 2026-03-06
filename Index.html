@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Team Safety Check-In</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --green: #2ecc71; --red: #e74c3c; --blue: #3498db; --yellow: #f1c40f;
+    --bg: #111418; --surface: #181c22; --border: #252b35; --muted: #4a5568;
+  }
+  body {
+    background: var(--bg); font-family: 'Barlow', sans-serif;
+    color: #d0d6e0; min-height: 100vh;
+  }
+  body::before {
+    content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  .wrap { position:relative; z-index:1; max-width:640px; margin:0 auto; padding:32px 16px 60px; }
+
+/* HEADER */
+.header { margin-bottom:28px; }
+.header-top { display:flex; align-items:center; gap:10px; margin-bottom:6px; }
+.header-label { font-family:‘Barlow Condensed’,sans-serif; font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(–muted); flex:1; }
+.header-title { font-family:‘Barlow Condensed’,sans-serif; font-size:36px; font-weight:800; letter-spacing:1px; line-height:1; color:var(–yellow); transition:color 0.4s; }
+.header-title.all-safe  { color:var(–green); }
+.header-title.has-unsafe{ color:var(–red); }
+.header-date { font-size:12px; color:var(–muted); margin-top:6px; }
+
+.pulse-dot {
+width:10px; height:10px; border-radius:50%; flex-shrink:0;
+background:var(–yellow); animation:pulse 2s infinite;
+}
+.pulse-dot.all-safe  { background:var(–green); animation:pulse-green 2s infinite; }
+.pulse-dot.has-unsafe{ background:var(–red);   animation:pulse-red   2s infinite; }
+@keyframes pulse       { 0%,100%{box-shadow:0 0 0 0 rgba(241,196,15,0.5)} 50%{box-shadow:0 0 0 7px rgba(241,196,15,0)} }
+@keyframes pulse-green { 0%,100%{box-shadow:0 0 0 0 rgba(46,204,113,0.5)} 50%{box-shadow:0 0 0 7px rgba(46,204,113,0)} }
+@keyframes pulse-red   { 0%,100%{box-shadow:0 0 0 0 rgba(231,76,60,0.5)}  50%{box-shadow:0 0 0 7px rgba(231,76,60,0)} }
+
+/* STATS */
+.stats { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:20px; }
+.stat { background:var(–surface); border:1px solid var(–border); border-radius:8px; padding:12px 8px; text-align:center; transition:all 0.3s; }
+.stat.g { border-color:var(–green); background:rgba(46,204,113,0.06); }
+.stat.r { border-color:var(–red);   background:rgba(231,76,60,0.06); }
+.stat.b { border-color:var(–blue);  background:rgba(52,152,219,0.06); }
+.stat-num { font-family:‘Barlow Condensed’,sans-serif; font-size:26px; font-weight:700; color:var(–muted); line-height:1; transition:color 0.3s; }
+.stat.g .stat-num { color:var(–green); }
+.stat.r .stat-num { color:var(–red); }
+.stat.b .stat-num { color:var(–blue); }
+.stat-label { font-family:‘Barlow Condensed’,sans-serif; font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(–muted); margin-top:3px; }
+
+/* MEMBERS */
+.members { display:flex; flex-direction:column; gap:6px; }
+.member {
+display:flex; align-items:center; gap:10px;
+background:var(–surface); border:1px solid var(–border);
+border-radius:10px; padding:12px 14px; transition:all 0.2s;
+animation:fadeUp 0.3s ease both;
+}
+.member.is-safe   { border-color:var(–green); background:rgba(46,204,113,0.06); }
+.member.is-unsafe { border-color:var(–red);   background:rgba(231,76,60,0.06); }
+.member.is-leave  { border-color:var(–blue);  background:rgba(52,152,219,0.06); opacity:.75; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+
+.member-dot { width:9px; height:9px; border-radius:50%; flex-shrink:0; background:#2a2a2a; transition:all 0.2s; }
+.is-safe   .member-dot { background:var(–green); box-shadow:0 0 8px var(–green); }
+.is-unsafe .member-dot { background:var(–red);   box-shadow:0 0 8px var(–red); }
+.is-leave  .member-dot { background:var(–blue);  box-shadow:0 0 8px var(–blue); }
+
+.member-name { flex:1; font-size:15px; font-weight:600; color:#888; transition:color 0.2s; }
+.is-safe   .member-name { color:var(–green); }
+.is-unsafe .member-name { color:var(–red); }
+.is-leave  .member-name { color:var(–blue); }
+
+.edit-icon { background:none; border:none; cursor:pointer; color:var(–muted); font-size:14px; padding:3px 5px; border-radius:4px; transition:color 0.15s; flex-shrink:0; }
+.edit-icon:hover { color:#ccc; }
+
+.member-btns { display:flex; gap:5px; flex-shrink:0; }
+.btn {
+padding:5px 11px; border-radius:6px;
+font-family:‘Barlow Condensed’,sans-serif; font-size:11px; font-weight:700;
+letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; border:1px solid; transition:all 0.15s;
+}
+.btn-safe   { background:transparent; border-color:#2a3a2a; color:#3a7a5a; }
+.btn-safe:hover   { border-color:var(–green); color:var(–green); }
+.is-safe   .btn-safe   { background:var(–green); border-color:var(–green); color:#000; }
+.btn-unsafe { background:transparent; border-color:#3a2a2a; color:#7a3a3a; }
+.btn-unsafe:hover { border-color:var(–red); color:var(–red); }
+.is-unsafe .btn-unsafe { background:var(–red); border-color:var(–red); color:#fff; }
+.btn-leave  { background:transparent; border-color:#2a2a3a; color:#3a5a7a; }
+.btn-leave:hover  { border-color:var(–blue); color:var(–blue); }
+.is-leave  .btn-leave  { background:var(–blue); border-color:var(–blue); color:#fff; }
+
+/* BOTTOM */
+.bottom-actions { margin-top:12px; display:flex; flex-direction:column; gap:8px; }
+.add-row { display:flex; gap:8px; align-items:center; }
+.name-input {
+flex:1; padding:11px 14px; border-radius:8px;
+background:#1a1e26; border:1px solid var(–border);
+color:#fff; font-size:14px; font-family:‘Barlow’,sans-serif; outline:none; transition:border-color 0.2s;
+}
+.name-input:focus { border-color:#555; }
+.btn-action {
+padding:11px 18px; border-radius:8px;
+font-family:‘Barlow Condensed’,sans-serif; font-size:12px; font-weight:700;
+letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; border:none; transition:all 0.15s; white-space:nowrap;
+}
+.btn-confirm { background:var(–yellow); color:#000; }
+.btn-confirm:hover { background:#ffe033; }
+.btn-cancel  { background:#252b35; color:#888; }
+.btn-cancel:hover  { background:#2e3645; }
+.btn-delete  { background:rgba(231,76,60,0.12); color:var(–red); border:1px solid rgba(231,76,60,0.25) !important; }
+.btn-delete:hover  { background:rgba(231,76,60,0.22); }
+.btn-reset {
+width:100%; padding:11px; border-radius:8px; background:transparent;
+border:1px solid var(–border); color:var(–muted);
+font-family:‘Barlow Condensed’,sans-serif; font-size:11px; font-weight:700;
+letter-spacing:2px; text-transform:uppercase; cursor:pointer; transition:all 0.2s;
+}
+.btn-reset:hover { border-color:#555; color:#aaa; }
+
+/* LIVE BADGE */
+.live-badge {
+display:inline-flex; align-items:center; gap:5px;
+font-family:‘Barlow Condensed’,sans-serif; font-size:10px;
+letter-spacing:2px; text-transform:uppercase;
+color:#2ecc71; opacity:0.7;
+}
+.live-dot { width:6px; height:6px; border-radius:50%; background:#2ecc71; animation:pulse-green 1.5s infinite; }
+
+/* MODAL */
+.modal-overlay {
+display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75);
+z-index:100; align-items:center; justify-content:center; backdrop-filter:blur(4px);
+}
+.modal-overlay.open { display:flex; }
+.modal {
+background:#1a1e26; border:1px solid #2e3645; border-radius:14px;
+padding:28px; width:100%; max-width:360px; margin:16px; animation:fadeUp 0.2s ease;
+}
+.modal-title { font-family:‘Barlow Condensed’,sans-serif; font-size:16px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#777; margin-bottom:14px; }
+.modal-btns  { display:flex; gap:8px; margin-top:14px; flex-wrap:wrap; }
+
+/* CONNECTING */
+.connecting { text-align:center; padding:60px 20px; color:var(–muted); font-family:‘Barlow Condensed’,sans-serif; letter-spacing:2px; font-size:14px; }
+
+@media (max-width:500px) {
+.header-title { font-size:26px; }
+.btn { padding:5px 7px; font-size:10px; letter-spacing:0.5px; }
+.member-name { font-size:13px; }
+.stats { grid-template-columns:repeat(2,1fr); }
+}
+</style>
+
+</head>
+<body>
+<div id="root"><div class="connecting">Connecting…</div></div>
+
+<!-- Edit Modal -->
+
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-title">✎ Edit Member</div>
+    <input type="text" id="editInput" class="name-input" maxlength="50"
+      onkeydown="if(event.key==='Enter')confirmEdit();if(event.key==='Escape')closeModal();" />
+    <div class="modal-btns">
+      <button class="btn-action btn-confirm" onclick="confirmEdit()">Save</button>
+      <button class="btn-action btn-delete"  onclick="confirmDelete()">Remove</button>
+      <button class="btn-action btn-cancel"  onclick="closeModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+
+// ═══════════════════════════════════════════════════
+//  STEP 1 — Paste your Firebase config here
+// ═══════════════════════════════════════════════════
+import { initializeApp }  from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getDatabase, ref, onValue, set, update, get }
+  from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey:            "AIzaSyD5AiRkj0tLbnfKIyNTVa-wYCH7GESS9Uc",
+  authDomain:        "daily-safety.firebaseapp.com",
+  databaseURL:       "https://daily-safety-default-rtdb.firebaseio.com",
+  projectId:         "daily-safety",
+  storageBucket:     "daily-safety.firebasestorage.app",
+  messagingSenderId: "296256831323",
+  appId:             "1:296256831323:web:1f5b035fc2f2f05211247e"
+};
+// ═══════════════════════════════════════════════════
+
+const DEFAULT_NAMES = [
+  "Tina Monte","Stephen Laird","Clare Middleton","Sue Bagguley",
+  "Stacey Waring","Matt Daukintis","Donna Johnson","Jono Scott",
+  "Mikki Staton","Tina Morgan","Krystle Thomas","Mel Carpenter"
+];
+
+const app = initializeApp(firebaseConfig);
+const db  = getDatabase(app);
+
+function todayKey() {
+  return new Date().toISOString().slice(0, 10); // e.g. "2025-06-12"
+}
+
+// Refs
+const namesRef  = () => ref(db, "safety/names");
+const statusRef = () => ref(db, `safety/status/${todayKey()}`);
+
+// Local state mirrors
+let NAMES    = [];
+let liveState = {};  // { "Name": "safe"|"unsafe"|"leave"|null }
+let editTarget = null;
+
+// ── BOOTSTRAP ───────────────────────────────────────
+async function boot() {
+  // Load or initialise names list
+  const snap = await get(namesRef());
+  NAMES = snap.exists() ? snap.val() : [...DEFAULT_NAMES];
+  // Merge in any missing defaults
+  DEFAULT_NAMES.forEach(n => { if (!NAMES.includes(n)) NAMES.push(n); });
+  await set(namesRef(), NAMES);
+
+  // Start listening for today's status (live updates)
+  onValue(statusRef(), snapshot => {
+    const data = snapshot.exists() ? snapshot.val() : {};
+    // Ensure every name has an entry
+    NAMES.forEach(n => { if (!(n in data)) data[n] = null; });
+    liveState = data;
+    render();
+  });
+
+  // Also re-listen whenever names change
+  onValue(namesRef(), snapshot => {
+    if (snapshot.exists()) {
+      NAMES = snapshot.val();
+      render();
+    }
+  });
+}
+
+// ── WRITE STATUS ────────────────────────────────────
+async function setStatus(name, value) {
+  // Toggle off if already selected
+  const current = liveState[name];
+  const next = current === value ? null : value;
+  await update(statusRef(), { [name]: next });
+}
+
+// ── RESET ALL ───────────────────────────────────────
+window.resetAll = async function() {
+  if (!confirm("Reset everyone's status?")) return;
+  const reset = {};
+  NAMES.forEach(n => reset[n] = null);
+  await set(statusRef(), reset);
+};
+
+// ── ADD MEMBER ──────────────────────────────────────
+window.showAdd = function() {
+  document.getElementById('addRow').style.display = 'flex';
+  document.getElementById('addBtn').style.display = 'none';
+  document.getElementById('newNameInput').value = '';
+  document.getElementById('newNameInput').focus();
+};
+window.cancelAdd = function() {
+  document.getElementById('addRow').style.display = 'none';
+  document.getElementById('addBtn').style.display = 'block';
+};
+window.confirmAdd = async function() {
+  const val = document.getElementById('newNameInput').value.trim();
+  if (!val) return;
+  if (NAMES.map(n=>n.toLowerCase()).includes(val.toLowerCase())) {
+    alert('That name is already in the list.'); return;
+  }
+  NAMES.push(val);
+  await set(namesRef(), NAMES);
+  await update(statusRef(), { [val]: null });
+  window.cancelAdd();
+};
+
+// ── EDIT MODAL ──────────────────────────────────────
+window.openEdit = function(name) {
+  editTarget = name;
+  document.getElementById('editInput').value = name;
+  document.getElementById('modalOverlay').classList.add('open');
+  setTimeout(() => document.getElementById('editInput').focus(), 60);
+};
+window.closeModal = function() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  editTarget = null;
+};
+window.confirmEdit = async function() {
+  const val = document.getElementById('editInput').value.trim();
+  if (!val || !editTarget) return;
+  if (val.toLowerCase() !== editTarget.toLowerCase() &&
+      NAMES.map(n=>n.toLowerCase()).includes(val.toLowerCase())) {
+    alert('That name already exists.'); return;
+  }
+  const idx = NAMES.indexOf(editTarget);
+  const savedStatus = liveState[editTarget];
+  NAMES[idx] = val;
+  await set(namesRef(), NAMES);
+  // Move status to new name key
+  const updates = { [editTarget]: null, [val]: savedStatus ?? null };
+  await update(statusRef(), updates);
+  window.closeModal();
+};
+window.confirmDelete = async function() {
+  if (!editTarget) return;
+  if (!confirm(`Remove "${editTarget}" from the list?`)) return;
+  NAMES = NAMES.filter(n => n !== editTarget);
+  await set(namesRef(), NAMES);
+  const updates = { [editTarget]: null };
+  await update(statusRef(), updates);
+  window.closeModal();
+};
+
+// ── RENDER ──────────────────────────────────────────
+function render() {
+  const active       = NAMES.filter(n => liveState[n] !== 'leave');
+  const safeCount    = NAMES.filter(n => liveState[n] === 'safe').length;
+  const unsafeCount  = NAMES.filter(n => liveState[n] === 'unsafe').length;
+  const leaveCount   = NAMES.filter(n => liveState[n] === 'leave').length;
+  const pendingCount = active.filter(n => !liveState[n]).length;
+  const allSafe      = active.length > 0 && active.every(n => liveState[n] === 'safe');
+  const hasUnsafe    = unsafeCount > 0;
+
+  const dateStr = new Date().toLocaleDateString('en-GB', {
+    weekday:'long', day:'numeric', month:'long', year:'numeric'
+  });
+
+  const headerClass = allSafe ? 'all-safe' : hasUnsafe ? 'has-unsafe' : '';
+  const dotClass    = allSafe ? 'all-safe' : hasUnsafe ? 'has-unsafe' : '';
+  const headerText  = allSafe ? '✓ ALL CLEAR' : hasUnsafe ? '⚠ ATTENTION NEEDED' : 'AWAITING CHECK-IN';
+
+  const membersHTML = NAMES.map((name, i) => {
+    const s   = liveState[name];
+    const cls = s === 'safe' ? 'is-safe' : s === 'unsafe' ? 'is-unsafe' : s === 'leave' ? 'is-leave' : '';
+    const esc = name.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+    return `
+      <div class="member ${cls}" style="animation-delay:${i*25}ms">
+        <div class="member-dot"></div>
+        <div class="member-name">${name}</div>
+        <button class="edit-icon" onclick="openEdit('${esc}')" title="Edit / Remove">✎</button>
+        <div class="member-btns">
+          <button class="btn btn-safe"   onclick="window.__setStatus('${esc}','safe')">Safe</button>
+          <button class="btn btn-unsafe" onclick="window.__setStatus('${esc}','unsafe')">Not Safe</button>
+          <button class="btn btn-leave"  onclick="window.__setStatus('${esc}','leave')">On Leave</button>
+        </div>
+      </div>`;
+  }).join('');
+
+  document.getElementById('root').innerHTML = `
+    <div class="wrap">
+      <div class="header">
+        <div class="header-top">
+          <div class="pulse-dot ${dotClass}"></div>
+          <span class="header-label">End-of-Day Safety Check-In</span>
+          <span class="live-badge"><span class="live-dot"></span>LIVE</span>
+        </div>
+        <div class="header-title ${headerClass}">${headerText}</div>
+        <div class="header-date">${dateStr}</div>
+      </div>
+
+      <div class="stats">
+        <div class="stat ${safeCount>0?'g':''}">
+          <div class="stat-num">${safeCount}</div><div class="stat-label">Safe</div>
+        </div>
+        <div class="stat ${unsafeCount>0?'r':''}">
+          <div class="stat-num">${unsafeCount}</div><div class="stat-label">Not Safe</div>
+        </div>
+        <div class="stat ${leaveCount>0?'b':''}">
+          <div class="stat-num">${leaveCount}</div><div class="stat-label">On Leave</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">${pendingCount}</div><div class="stat-label">Pending</div>
+        </div>
+      </div>
+
+      <div class="members">${membersHTML}</div>
+
+      <div class="bottom-actions">
+        <div class="add-row" id="addRow" style="display:none;">
+          <input type="text" id="newNameInput" class="name-input" placeholder="Enter full name..." maxlength="50"
+            onkeydown="if(event.key==='Enter')window.confirmAdd();if(event.key==='Escape')window.cancelAdd();" />
+          <button class="btn-action btn-confirm" onclick="window.confirmAdd()">Add</button>
+          <button class="btn-action btn-cancel"  onclick="window.cancelAdd()">✕</button>
+        </div>
+        <button class="btn-reset" id="addBtn" onclick="window.showAdd()">+ Add Team Member</button>
+        <button class="btn-reset" onclick="window.resetAll()">↺ Reset All Statuses</button>
+      </div>
+    </div>`;
+}
+
+// Expose setStatus to inline onclick handlers
+window.__setStatus = setStatus;
+
+boot();
+</script>
+
+</body>
+</html>
